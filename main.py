@@ -53,12 +53,11 @@ def extract_celestial_object_info(celestial_object_data):
         print(f"{key}: {value}")
     print("\n")
 
-
 def menu():
     # Display menu options
     while True:
         print("---=== Menu ===---")
-        print("1. View Planet and MoonInformation")
+        print("1. View Planet and Moon Information")
         print("2. Exit\n")
         choice = input("Enter your choice (1-2): ")
 
@@ -74,7 +73,7 @@ def menu():
                 print("Exiting the Solar System Explorer. Goodbye!")
                 exit(0)
             case _:
-                print("Invalid choice. Please try again.")
+                print("Invalid choice. Please try again.\n")
                 menu()
 
 
