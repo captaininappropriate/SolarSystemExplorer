@@ -1,5 +1,5 @@
 # Title: Solar System Explorer
-# Description: A Python program that allows users to explore information about the planets in our solar system.
+# Description: A Python program that allows users to explore information about the planets and moons in our solar system.
 # Requires: Python 3.x and an API key from a The Solar System Open Data (https://api.le-systeme-solaire.net/en/) which is stored in constants.py
 # Author: Greg Nimmo
 # Date: 06/01/2026
@@ -20,35 +20,36 @@ def api_key_loaded():
 def greeting():
     # Display greeting message
     print("Welcome to the Solar System Explorer!")
-    print("Explore information about the planets in our solar system.\n")
+    print("Explore information about the planets and moons in our solar system.\n")
 
 
-def fetch_planet_data(planet_name):
+def fetch_celestial_object_data(celestial_object_name):
     # Fetch planet data from the API
     bearer_token = API_KEY
     headers = {"Authorization": f"Bearer {bearer_token}"}
-    url = f"https://api.le-systeme-solaire.net/rest/bodies/{planet_name.lower()}"
+    url = f"https://api.le-systeme-solaire.net/rest/bodies/{celestial_object_name.lower()}"
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
         data = response.json()
-        extract_planet_info(data)
+        extract_celestial_object_info(data)
     else:
-        print(f"Error: Unable to fetch data for {planet_name}. Please check the planet name and try again.")
+        print(f"Error: Unable to fetch data for {celestial_object_name}. Please check the planet name and try again.")
         return None
 
 
-def extract_planet_info(planet_data):
-    # Extract relevant planet information using json module
-    planet_info = {
-        "Name": planet_data.get("englishName", "N/A"),
-        "Mass (10^24 kg)": planet_data.get("mass", {}).get("massValue", "N/A"),
-        "Gravity (m/s²)": planet_data.get("gravity", "N/A"),
-        "Mean Radius (km)": planet_data.get("meanRadius", "N/A"),
-        "Orbital Period (days)": planet_data.get("sideralOrbit", "N/A"),
-        "Number of Moons": len(planet_data.get("moons", [])) if planet_data.get("moons") else 0,
+def extract_celestial_object_info(celestial_object_data):
+    # Extract relevant planet and moon information
+    celestial_object_info = {
+        "Name": celestial_object_data.get("englishName", "N/A"),
+        "Mass (10^24 kg)": celestial_object_data.get("mass", {}).get("massValue", "N/A"),
+        "Gravity (m/s²)": celestial_object_data.get("gravity", "N/A"),
+        "Mean Radius (km)": celestial_object_data.get("meanRadius", "N/A"),
+        "Orbital Period (days)": celestial_object_data.get("sideralOrbit", "N/A"),
+        "Number of Moons": len(celestial_object_data.get("moons", [])) if celestial_object_data.get("moons") else 0,
     }
     # print the extracted information
-    for key, value in planet_info.items():
+    print("\n--- Celestial Object Information ---")
+    for key, value in celestial_object_info.items():
         print(f"{key}: {value}")
     print("\n")
 
@@ -56,19 +57,19 @@ def extract_planet_info(planet_data):
 def menu():
     # Display menu options
     while True:
-        print("\n---=== Menu ===---")
-        print("1. View Planet Information")
-        print("2. Exit")
+        print("---=== Menu ===---")
+        print("1. View Planet and MoonInformation")
+        print("2. Exit\n")
         choice = input("Enter your choice (1-2): ")
 
         # Handle user choice
         # Using match-case for Python 3.10+
         match choice:
             case '1':
-                planet_name = input("Enter the name of a planet or moon (e.g., Earth, Euanthe): ")
-                planet_data = fetch_planet_data(planet_name)
-                if planet_data:
-                    print(json.dumps(planet_data, indent=4))
+                celestial_object_name = input("Enter the name of a planet or moon (e.g., Earth, Euanthe): ")
+                celestial_object_data = fetch_celestial_object_data(celestial_object_name)
+                if celestial_object_data:
+                    print(json.dumps(celestial_object_data, indent=4))
             case '2':
                 print("Exiting the Solar System Explorer. Goodbye!")
                 exit(0)
