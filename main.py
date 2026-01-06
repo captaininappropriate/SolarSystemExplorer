@@ -53,6 +53,7 @@ def extract_celestial_object_info(celestial_object_data):
         print(f"{key}: {value}")
     print("\n")
 
+
 def menu():
     # Display menu options
     while True:
