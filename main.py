@@ -12,6 +12,10 @@ from constants import API_KEY
 import json
 import requests
 
+def api_key_loaded():
+    # Check if API key is loaded
+    return isinstance(API_KEY, str) and len(API_KEY.strip()) > 0
+
 
 def greeting():
     # Display greeting message
@@ -59,15 +63,10 @@ def menu():
 menu()
 
 
-#if __name__ == "__main__":
-#    # Check if API key is present
-#    API_KEY = API_KEY  # Use the imported API key from constants.py
-#    if not API_KEY:
-#        print("\nERROR: API Key is missing. Please set your API key in constants.py")
-#        exit(1)
-#    else:
-#        print("API Key loaded successfully.\n")
-#        greeting()
-
 if __name__ == "__main__":
-    greeting()
+    if api_key_loaded():
+        greeting()
+    else:
+        raise RuntimeError(
+            "The API Key was not loaded please check constraints.py contains your API key before trying again"
+        )
