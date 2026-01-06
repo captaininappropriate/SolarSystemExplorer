@@ -50,7 +50,7 @@ def extract_planet_info(planet_data):
     # print the extracted information
     for key, value in planet_info.items():
         print(f"{key}: {value}")
-        print("\n")
+    print("\n")
 
 
 def menu():
