@@ -33,7 +33,7 @@ def fetch_celestial_object_data(celestial_object_name):
         data = response.json()
         extract_celestial_object_info(data)
     else:
-        print(f"Error: Unable to fetch data for {celestial_object_name}. Please check the planet name and try again.")
+        print(f"Error: Unable to fetch data for {celestial_object_name}. Please check the planet or moons name and try again.")
         return None
 
 
