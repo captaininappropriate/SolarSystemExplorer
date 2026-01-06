@@ -30,16 +30,33 @@ def fetch_planet_data(planet_name):
     url = f"https://api.le-systeme-solaire.net/rest/bodies/{planet_name.lower()}"
     response = requests.get(url, headers=headers)
     if response.status_code == 200:
-        return response.json()
+        data = response.json()
+        extract_planet_info(data)
     else:
         print(f"Error: Unable to fetch data for {planet_name}. Please check the planet name and try again.")
         return None
 
 
+def extract_planet_info(planet_data):
+    # Extract relevant planet information using json module
+    planet_info = {
+        "Name": planet_data.get("englishName", "N/A"),
+        "Mass (10^24 kg)": planet_data.get("mass", {}).get("massValue", "N/A"),
+        "Gravity (m/s²)": planet_data.get("gravity", "N/A"),
+        "Mean Radius (km)": planet_data.get("meanRadius", "N/A"),
+        "Orbital Period (days)": planet_data.get("sideralOrbit", "N/A"),
+        "Number of Moons": len(planet_data.get("moons", [])) if planet_data.get("moons") else 0,
+    }
+    # print the extracted information
+    for key, value in planet_info.items():
+        print(f"{key}: {value}")
+        print("\n")
+
+
 def menu():
     # Display menu options
     while True:
-        print("Menu:")
+        print("\n---=== Menu ===---")
         print("1. View Planet Information")
         print("2. Exit")
         choice = input("Enter your choice (1-2): ")
