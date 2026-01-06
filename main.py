@@ -40,15 +40,15 @@ def fetch_celestial_object_data(celestial_object_name):
 def extract_celestial_object_info(celestial_object_data):
     # Extract relevant planet and moon information
     celestial_object_info = {
-        "Name": celestial_object_data.get("englishName", "N/A"),
-        "Mass (10^24 kg)": celestial_object_data.get("mass", {}).get("massValue", "N/A"),
-        "Gravity (m/s²)": celestial_object_data.get("gravity", "N/A"),
-        "Mean Radius (km)": celestial_object_data.get("meanRadius", "N/A"),
-        "Orbital Period (days)": celestial_object_data.get("sideralOrbit", "N/A"),
-        "Number of Moons": len(celestial_object_data.get("moons", [])) if celestial_object_data.get("moons") else 0,
+        "[*] Name": celestial_object_data.get("englishName", "N/A"),
+        "[*] Mass (10^24 kg)": celestial_object_data.get("mass", {}).get("massValue", "N/A"),
+        "[*] Gravity (m/s²)": celestial_object_data.get("gravity", "N/A"),
+        "[*] Mean Radius (km)": celestial_object_data.get("meanRadius", "N/A"),
+        "[*] Orbital Period (days)": celestial_object_data.get("sideralOrbit", "N/A"),
+        "[*] Number of Moons": len(celestial_object_data.get("moons", [])) if celestial_object_data.get("moons") else 0,
     }
     # print the extracted information
-    print("\n--- Celestial Object Information ---")
+    print("\n\n---=== Celestial Object Information ===---\n")
     for key, value in celestial_object_info.items():
         print(f"{key}: {value}")
     print("\n")
