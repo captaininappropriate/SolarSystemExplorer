@@ -60,12 +60,10 @@ def menu():
                 menu()
 
 
-menu()
-
-
 if __name__ == "__main__":
     if api_key_loaded():
         greeting()
+        menu()
     else:
         raise RuntimeError(
             "The API Key was not loaded please check constraints.py contains your API key before trying again"
